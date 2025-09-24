@@ -1,8 +1,10 @@
 import express from "express";
-import { MedicationController } from
-"../controllers/medicationController.js";
+import { MedicationController } from "../controllers/medicationController.js";
 
 const router = express.Router();
+
+// letakkan di atas supaya tidak ketabrak :id
+router.get("/reports/total", MedicationController.getTotal);
 
 router.get("/", MedicationController.getAll);
 router.get("/:id", MedicationController.getById);
