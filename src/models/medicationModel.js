@@ -92,4 +92,15 @@ export const MedicationModel = {
     if (error) throw error;
     return { success: true };
   },
+
+  async getTotal() {
+    const { count, error } = await supabase
+      .from("medications")
+      .select("*", { count: "exact", head: true }); // hanya hitung jumlah
+
+    if (error) throw error;
+    return count;
+  },
+
+
 };
