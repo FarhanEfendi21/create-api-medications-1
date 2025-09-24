@@ -14,14 +14,20 @@ app.use("/api/suppliers", supplierRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/medications", medicationRoutes);
 
-// optional: root endpoint supaya tidak "Cannot GET /"
-app.get("/", (req, res) => {
-  res.json({ message: "API is running!" });
+// ✅ Root endpoint: langsung return data medications
+import { getAllMedications } from "./controllers/medicationController.js";
+
+app.get("/", async (req, res) => {
+  try {
+    const data = await getAllMedications(req, res, true); // panggil controller, return data
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch medications", error: error.message });
+  }
 });
 
-// ❌ Hapus app.listen
+// ❌ Jangan gunakan app.listen
 // const port = process.env.PORT || 3000;
 // app.listen(port, () => console.log(`Server running on port ${port}`));
 
-// ✅ Export app untuk Vercel
 export default app;
