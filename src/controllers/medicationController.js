@@ -80,4 +80,14 @@ export const MedicationController = {
       res.status(400).json({ error: err.message });
     }
   },
+
+ async getTotal(req, res) {
+    try {
+      const total = await MedicationModel.getTotal();
+      res.json({ total });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+
 };
